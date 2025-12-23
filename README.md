@@ -32,5 +32,5 @@ This repository contains "Core Modules"—foundational workflows designed to sol
 **Abhishek Rai** | *Automation Architect & Strategy Engineer*
 I engineer time. My focus is building "Agentic Loops"—systems that automate 80% of the manual drudgery in strategic planning and operations.
 
-* **Connect on LinkedIn:** [Link to your LinkedIn Profile]
-* **Hire Me:** Open for consulting on complex workflow architecture.
+* **Connect on LinkedIn:** https://www.linkedin.com/in/abhishekrai2000/
+* Open for consulting on complex workflow architecture.
