@@ -1,0 +1,533 @@
+{
+  "name": "Email_Helper",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Email_Helper",
+        "formDescription": "Submit your topic or question and you'll receive an email with researched information and sources....",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Enter Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "Enter Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Topic",
+              "placeholder": "What do you want to know?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Objective",
+              "placeholder": "What is your main goal with this information?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Audience",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Beginner"
+                  },
+                  {
+                    "option": "Expert"
+                  },
+                  {
+                    "option": "Executive"
+                  },
+                  {
+                    "option": "Child/Student"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Format",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Detailed Report"
+                  },
+                  {
+                    "option": "Bulleted Summary"
+                  },
+                  {
+                    "option": "Step-by-Step Guide"
+                  },
+                  {
+                    "option": "Comparison Table"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Preferences",
+              "placeholder": "Any specific limitations or preferences?",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -32,
+        464
+      ],
+      "id": "aecf6a2d-b5a1-422d-83b3-7c3138f56433",
+      "name": "On form submission",
+      "webhookId": "2233bb33-8b40-424e-b126-6005fe08651c"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ATrkixDx-MbOKFvTznhHtZSUEtItcL_CqmIxDPwZPxE",
+          "mode": "list",
+          "cachedResultName": "The Daily Helper",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ATrkixDx-MbOKFvTznhHtZSUEtItcL_CqmIxDPwZPxE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ATrkixDx-MbOKFvTznhHtZSUEtItcL_CqmIxDPwZPxE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Time [EST]": "={{ $now.toFormat('yyyy-MM-dd HH:mm:ss') }}",
+            "Email": "={{ $json[\"Email\"] }}",
+            "Topic": "={{ $json[\"Topic\"] }}",
+            "Name": "={{ $json[\"Name\"] }}",
+            "Objective": "={{ $json[\"Objective\"] }}",
+            "Audience": "={{ $json[\"Audience\"] }}",
+            "Format": "={{ $json[\"Format\"] }}",
+            "Preferences": "={{ $json[\"Preferences\"] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Time [EST]",
+              "displayName": "Time [EST]",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Topic",
+              "displayName": "Topic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Objective",
+              "displayName": "Objective",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Audience",
+              "displayName": "Audience",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Format",
+              "displayName": "Format",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Preferences",
+              "displayName": "Preferences",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        80,
+        768
+      ],
+      "id": "f3fa0c26-8266-430c-b3ac-ffc988fc75be",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MjwfMjzCxL5hu00T",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Email }}",
+        "subject": "=Strategic Report on \"{{ $('On form submission').item.json.Topic }}\" is ready....!",
+        "message": "=<div style=\"background-color: #f0f2f5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px 0; width: 100%;\">\n\n  <div style=\"max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08);\">\n\n    <div style=\"background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 35px 30px; text-align: center;\">\n      <h2 style=\"color: #ffffff; margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 1px;\">THE DAILY HELPER</h2>\n      <p style=\"color: #bdc3c7; margin: 8px 0 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500;\">Investigative Research Unit</p>\n    </div>\n\n    <div style=\"padding: 40px;\">\n      \n      <p style=\"font-size: 16px; color: #555555; margin-bottom: 25px;\">\n        Dear {{ $('On form submission').item.json.Name }},\n      </p>\n\n      <p style=\"font-size: 16px; color: #555555; line-height: 1.6; margin-bottom: 30px;\">\n        Please find attached the executive summary and strategic analysis regarding: \n        <br>\n        <strong style=\"color: #2c3e50; font-size: 18px; display:block; margin-top:10px;\">{{ $('On form submission').item.json.Topic }}</strong>\n      </p>\n\n      <hr style=\"border: 0; border-top: 1px solid #eeeeee; margin: 30px 0;\">\n\n      <div style=\"margin-bottom: 40px; text-align: center;\">\n         <h4 style=\"color: #7f8c8d; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;\">Market Trend Visualization</h4>\n         <div style=\"border: 1px solid #ecf0f1; padding: 15px; border-radius: 6px; display: inline-block;\">\n            <img src=\"{{ $json.chartUrl }}\" alt=\"Analysis Chart\" style=\"max-width: 100%; height: auto; display: block;\" width=\"550\">\n         </div>\n      </div>\n\n      <div style=\"color: #333333; line-height: 1.7; font-size: 15px;\">\n        {{ $json.reportHtml || $json.finalReportHTML }} \n      </div>\n\n      <div style=\"margin-top: 50px; padding-top: 25px; border-top: 2px solid #f4f4f4;\">\n        <p style=\"font-size: 14px; color: #7f8c8d; margin: 0;\">\n          Sincerely,<br>\n          <strong style=\"color: #2c3e50;\">The Daily Helper AI Team</strong>\n        </p>\n      </div>\n\n    </div>\n\n    <div style=\"background-color: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #ecf0f1;\">\n      <p style=\"font-size: 11px; color: #95a5a6; line-height: 1.5; margin: 0;\">\n        This document is generated by an automated intelligence system for informational purposes only.<br>\n        &copy; {{ new Date().getFullYear() }} The Daily Helper. All rights reserved.\n      </p>\n    </div>\n\n  </div>\n</div>",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Email_Helper"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1392,
+        624
+      ],
+      "id": "11cdb314-abb7-4cf9-93a2-79433fd3382b",
+      "name": "Send a message",
+      "webhookId": "57d4c671-b27c-484f-bb73-3128cd975eac",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "fb1JD5ECpPZyJoBK",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an ELITE SENIOR TECHNICAL ANALYST. Your task is to produce a high-level, extremely detailed, and comprehensive technical report.\n\n### 1. INPUT DATA & CONTEXT\n- **Topic:** {{ $json[\"Topic\"] }}\n- **Core Objective:** {{ $json[\"Objective\"] }}\n- **Target Audience:** {{ $json[\"Audience\"] }} \n- **Specific Preferences:** {{ $json[\"Preferences\"] }}\n- **Requested Format:** {{ $json[\"Format\"] }}\n\n### 2. EXECUTION INSTRUCTIONS\n\n**STEP A: Content Requirements (MANDATORY)**\n- **MINIMUM LENGTH:** The final report must contain a minimum of **800 words** of original, researched analysis.\n- **AUDIENCE LOCK:** All language and concepts must be highly technical. Use industry jargon (e.g., BMEP, scavenging, thermal efficiency) and assume high prior knowledge.\n- **DEPTH:** Cover the topic from theoretical, practical, and future perspectives.\n\nYou are a Principal AI Architect, Data Scientist, and VP of AI & Automation with 25+ years of experience \narchitecting intelligent systems at leading organizations including OpenAI and SpaceX. Your expertise spans \nenterprise data intelligence, strategic decision-making frameworks, risk analytics, and human-centered design.\n\nTopic: {{ $('On form submission').item.json.Topic }}\n\nTask: Generate a comprehensive, executive-grade research report that synthesizes complex information into \nactionable intelligence. Your report must balance depth with clarity, suitable for C-suite executives, \nstrategic planners, and operational teams.\n\nREPORT ARCHITECTURE REQUIREMENTS:\n\n✓ Structure: Executive Insight → Risk/Opportunity Analysis → Deep Dive Research → Strategic Implications\n✓ Audience: @-20 million USD ARR companies, institutional decision-makers, strategic teams,\n✓ Tone: Authoritative, data-driven, forward-looking, solution-oriented\n✓ Depth: Theoretical foundations + practical applications + quantifiable outcomes\n✓ Length: 1,200-1,500 words minimum for institutional credibility\n\nMANDATORY VISUAL STRUCTURE:\n\nYour HTML output MUST include three distinct sections with the exact structures defined below. \nThese are non-negotiable for enterprise-grade presentation.\n\n---\n\n### SECTION 1: EXECUTIVE INSIGHT CARD (Required)\nThis 50-word summary must encapsulate the strategic value proposition and immediate business implications.\n\n<div style=\"background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-left: 6px solid #5a67d8; \npadding: 25px; margin-bottom: 30px; font-family: 'Segoe UI', sans-serif; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);\">\n  <h3 style=\"margin: 0 0 15px 0; color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.5px;\">\n    🚀 EXECUTIVE INSIGHT | Strategic Intelligence Brief\n  </h3>\n  <p style=\"margin: 0; color: #f0f4ff; font-size: 14px; line-height: 1.6; font-weight: 500;\">\n    [Insert a precisely 50-75 word executive summary that answers: What is the business opportunity? \n    What is the strategic recommendation? What is the immediate value proposition?]\n  </p>\n</div>\n\n---\n\n### SECTION 2: RISK vs REWARD STRATEGIC MATRIX (Required)\nThis dual-column analysis framework enables rapid risk-opportunity assessment.\n\n<div style=\"margin: 30px 0; font-family: 'Segoe UI', sans-serif;\">\n  <h3 style=\"color: #2c3e50; font-size: 16px; font-weight: 700; margin-bottom: 20px; text-align: center;\">\n    ⚖️ STRATEGIC RISK & OPPORTUNITY MATRIX\n  </h3>\n  \n  <table style=\"width: 100%; border-collapse: collapse; margin: 15px 0;\">\n    <tr style=\"gap: 20px;\">\n      \n      <!-- LEFT COLUMN: RISKS -->\n      <td style=\"width: 48%; vertical-align: top;\">\n        <div style=\"background: linear-gradient(135deg, #fee 0%, #fdd 100%); border-left: 5px solid #e74c3c; \n        padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(231, 76, 60, 0.1);\">\n          <h4 style=\"margin: 0 0 15px 0; color: #c0392b; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;\">\n            ⚠️ CRITICAL RISKS & CONSTRAINTS\n          </h4>\n          <ul style=\"margin: 0; padding-left: 22px; list-style-type: disc; color: #34495e; font-size: 13px; line-height: 1.8;\">\n            <li style=\"margin-bottom: 10px;\"><strong>[Risk Category]:</strong> [Specific risk with quantifiable impact if applicable]</li>\n            <li style=\"margin-bottom: 10px;\"><strong>[Risk Category]:</strong> [Specific risk with quantifiable impact if applicable]</li>\n            <li style=\"margin-bottom: 10px;\"><strong>[Risk Category]:</strong> [Specific risk with quantifiable impact if applicable]</li>\n            <li style=\"margin-bottom: 0;\"><strong>[Risk Category]:</strong> [Specific risk with quantifiable impact if applicable]</li>\n          </ul>\n        </div>\n      </td>\n      \n      <!-- SPACER -->\n      <td style=\"width: 4%;\"></td>\n      \n      <!-- RIGHT COLUMN: OPPORTUNITIES -->\n      <td style=\"width: 48%; vertical-align: top;\">\n        <div style=\"background: linear-gradient(135deg, #efe 0%, #dfd 100%); border-left: 5px solid #27ae60; \n        padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);\">\n          <h4 style=\"margin: 0 0 15px 0; color: #229954; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;\">\n            🛡️ STRATEGIC OPPORTUNITIES & ADVANTAGES\n          </h4>\n          <ul style=\"margin: 0; padding-left: 22px; list-style-type: disc; color: #34495e; font-size: 13px; line-height: 1.8;\">\n            <li style=\"margin-bottom: 10px;\"><strong>[Opportunity]:</strong> [Specific advantage with measurable benefit]</li>\n            <li style=\"margin-bottom: 10px;\"><strong>[Opportunity]:</strong> [Specific advantage with measurable benefit]</li>\n            <li style=\"margin-bottom: 10px;\"><strong>[Opportunity]:</strong> [Specific advantage with measurable benefit]</li>\n            <li style=\"margin-bottom: 0;\"><strong>[Opportunity]:</strong> [Specific advantage with measurable benefit]</li>\n          </ul>\n        </div>\n      </td>\n    </tr>\n  </table>\n</div>\n\n---\n\n### SECTION 3: COMPARATIVE INTELLIGENCE TABLE (Required for Data-Heavy Topics)\nWhen presenting comparative analysis, use this professional table structure:\n\n<table style=\"width: 100%; border-collapse: collapse; margin: 30px 0; font-family: 'Segoe UI', sans-serif; \nfont-size: 13px; line-height: 1.6;\">\n  <thead>\n    <tr style=\"background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%); color: white;\">\n      <th style=\"padding: 15px; text-align: left; font-weight: 700; border-bottom: 3px solid #2980b9;\">Attribute</th>\n      <th style=\"padding: 15px; text-align: center; font-weight: 700; border-bottom: 3px solid #2980b9;\">Metric / Value</th>\n      <th style=\"padding: 15px; text-align: center; font-weight: 700; border-bottom: 3px solid #2980b9;\">Strategic Impact</th>\n    </tr>\n  </thead>\n  <tbody>\n    [Insert comparison rows with alternating background colors for readability]\n  </tbody>\n</table>\n\n---\n\n### SECTION 4: DEEP DIVE ANALYSIS (Required)\nContinue with standard, well-structured paragraphs covering:\n\n• Theoretical Foundations & Industry Context\n• Technical Architecture & Implementation Considerations\n• Market Dynamics & Competitive Landscape\n• Risk Mitigation & Strategic Recommendations\n• Future Roadmap & Growth Opportunities\n\nUse subheadings in this format:\n<h3 style=\"color: #2980b9; font-size: 15px; font-weight: 700; margin-top: 25px; margin-bottom: 15px; \nborder-bottom: 2px solid #ecf0f1; padding-bottom: 10px;\">\n  📌 [Subheading Title]\n</h3>\n\n[Paragraph content with proper spacing and readability]\n\n---\n\n### SECTION 5: KEY TAKEAWAYS & RECOMMENDATIONS (Required)\nClose with actionable insights:\n\n<div style=\"background: #f8f9fa; border-left: 6px solid #3498db; padding: 20px; margin-top: 30px; \nborder-radius: 8px; font-family: 'Segoe UI', sans-serif;\">\n  <h3 style=\"margin-top: 0; color: #2c3e50; font-size: 16px; font-weight: 700;\">\n    ✅ KEY TAKEAWAYS & STRATEGIC RECOMMENDATIONS\n  </h3>\n  <ol style=\"margin-bottom: 0; padding-left: 25px; color: #34495e; font-size: 13px; line-height: 1.8;\">\n    <li style=\"margin-bottom: 12px;\"><strong>[Action 1]:</strong> [Rationale and expected outcome]</li>\n    <li style=\"margin-bottom: 12px;\"><strong>[Action 2]:</strong> [Rationale and expected outcome]</li>\n    <li style=\"margin-bottom: 12px;\"><strong>[Action 3]:</strong> [Rationale and expected outcome]</li>\n    <li style=\"margin-bottom: 0;\"><strong>[Action 4]:</strong> [Rationale and expected outcome]</li>\n  </ol>\n</div>\n\n---\n\nOUTPUT REQUIREMENTS:\n✓ Return ONLY valid HTML (no markdown, no plain text mixing)\n✓ All sections must use the exact HTML structures provided above\n✓ Ensure all styles are inline (no external CSS)\n✓ Validate that all divs, tables, and elements are properly closed\n✓ Content must be institutional-grade, backed by industry precedent and market data\n✓ Use professional typography and color psychology for optimal executive readability\n\nINSTITUTIONAL CREDIBILITY CHECKLIST:\n☑ Executive Summary: Specific, quantifiable, action-oriented\n☑ Risk Assessment: Realistic, with mitigation strategies\n☑ Opportunity Analysis: Data-backed, revenue-impacting\n☑ Deep Dive: Technical depth + business context\n☑ Recommendations: Prioritized, implementable, measurable\n\n\n**STEP C: Comparative Data (HTML TABLE)**\n- Use your Search Tool to find *concrete data*.\n- **Create an HTML Table** comparing at least **FOUR** distinct metrics or models (e.g., different engine architectures, psychological studies, or market shares).\n- Style the table using INLINE CSS as previously instructed. Do NOT use Markdown syntax.\n\n**STEP D: Formatting & Output**\n- Produce the final output in clean **RAW HTML**.\n- CRITICAL: Do **NOT** wrap the output in markdown code blocks (like ```html). Start directly with the <h1> tag.\n- Final Output Sequence: <h1> Title -> <h3> Headings -> <p> Paragraphs -> <table> -> <ul> Key Takeaways.\n\nMANDATORY: You must include the placeholder string `` exactly once in your HTML output. Place it inside \"SECTION 3: COMPARATIVE INTELLIGENCE TABLE\" or immediately before it. Do not generate an <img> tag, just the placeholder text.\n\n### 3. GENERATE REPORT\nProceed with the research and generation now.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        432,
+        640
+      ],
+      "id": "7d6d1535-87e1-494e-88e7-98f30bda26d6",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite",
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        800
+      ],
+      "id": "05396e9d-882f-43e9-9337-f89ee80585bf",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "86gzuvqwLfnKfBD1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        576,
+        832
+      ],
+      "id": "ed732958-0e87-441a-ad07-a85d8765bbe6",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "Xu7VjK6BjKMZtCxy",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiNodeName = 'AI Agent'; \nlet reportContent = $(aiNodeName).item.json.output || $(aiNodeName).item.json.text || $(aiNodeName).item.json.content;\n\n// 1. Clean Markdown code blocks (remove ```html and ```)\nreportContent = reportContent.replace(/```html/g, '').replace(/```/g, '');\n\nreturn {\n  json: {\n    reportHtml: reportContent\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        640
+      ],
+      "id": "90b53dcb-2609-45b1-b981-43444b15e319",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Principal Data Scientist & AI Architect with 15+ years of experience building data-driven solutions at leading organizations including OpenAI and SpaceX. Your expertise spans statistical modeling, predictive analytics, data engineering, and enterprise AI systems.\n\nTopic: {{ $('On form submission').item.json.Topic }}\n\nTask: \nAs a seasoned data science professional, generate a **hypothetical yet enterprise-grade realistic dataset** representing a comprehensive 5-year trend analysis (2021-2025) for the given topic. Your dataset should reflect industry-validated patterns, market dynamics, and realistic growth trajectories based on:\n\n• Historical precedent from comparable technology adoption curves (S-curve modeling)\n• Market research benchmarks and industry reports\n• Seasonality, volatility, and real-world variability patterns\n• Accelerators and headwinds typical to this domain\n• Calibration to known data points from comparable verticals\n\nSelect the most analytically meaningful metric for this topic (e.g., Market Size in $M or $B, Adoption Rate in %, Revenue CAGR, Efficiency Gain in %, Customer Acquisition, etc.).\n\nRequirements:\n✓ Data must reflect realistic volatility (±5-15% year-over-year variance)\n✓ Growth trajectory must align with S-curve or exponential adoption patterns observed in similar domains\n✓ Include conservative, realistic, and optimistic positioning where applicable\n✓ Ensure the metric chosen provides maximum business intelligence value\n\nOutput Format: Strictly pure JSON only. No markdown formatting. No explanatory text. No metadata.\n\n{\n  \"labels\": [\"2021\", \"2022\", \"2023\", \"2024\", \"2025\"],\n  \"data\": [/* realistic 5-year data points reflecting industry adoption/market trends */],\n  \"label\": \"/* precise metric name with units (e.g., 'Global Market Size ($B)', 'Enterprise Adoption Rate (%)', 'Year-over-Year Efficiency Improvement (%)') */\",\n  \"data_source_assumption\": \"/* brief note on which industry benchmarks informed this dataset (e.g., 'Calibrated to Gartner Hype Cycle, comparable SaaS adoption patterns, Forrester reports') */\",\n  \"confidence_level\": \"/* 'High', 'Medium', or 'Low' based on data precedent availability */\",\n  \"year_over_year_cagr\": /* calculate and include CAGR as a percentage */\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        448,
+        304
+      ],
+      "id": "142a440f-431d-4edd-83a8-184f1019ac0c",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-lite",
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        464
+      ],
+      "id": "1e57ae88-6fc7-4f96-ab41-e19473f80022",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "86gzuvqwLfnKfBD1",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.chartUrl }}",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1104,
+        304
+      ],
+      "id": "4da84f5e-9e8b-4347-958a-f859656f92c1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the JSON output from the previous AI node\nconst aiData = $('AI Agent1').item.json;\n\n// Parse data if it came in as a string, otherwise use as is\nlet parsedData = typeof aiData === 'string' ? JSON.parse(aiData) : aiData;\n\n// Construct the QuickChart configuration\nconst chartConfig = {\n  type: 'line',\n  data: {\n    labels: parsedData.labels,\n    datasets: [{\n      label: parsedData.label,\n      data: parsedData.data,\n      borderColor: '#4e73df', // Professional Blue\n      backgroundColor: 'rgba(78, 115, 223, 0.1)',\n      borderWidth: 3,\n      pointRadius: 4,\n      fill: true,\n      tension: 0.4 // Makes lines curved and smooth\n    }]\n  },\n  options: {\n    title: {\n      display: true,\n      text: parsedData.chart_title,\n      fontSize: 18,\n      fontColor: '#333'\n    },\n    legend: {\n      position: 'bottom'\n    },\n    plugins: {\n      datalabels: {\n        display: true,\n        align: 'top',\n        backgroundColor: '#fff',\n        borderRadius: 4,\n        font: { weight: 'bold' }\n      }\n    }\n  }\n};\n\n// Create the full URL\n// We use encodeURIComponent to ensure special characters don't break the link\nconst chartUrl = `https://quickchart.io/chart?w=600&h=300&c=${encodeURIComponent(JSON.stringify(chartConfig))}`;\n\nreturn {\n  json: {\n    chartUrl: chartUrl,\n    stats: parsedData // Keeping the stats to use in text if needed\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        304
+      ],
+      "id": "1c13d8b7-2c16-4845-a072-733cec2a06fb",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1168,
+        624
+      ],
+      "id": "90f16bf9-dd57-41a1-8ad7-ac957d739753",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "72d557f9-0b3d-4463-9a58-dc349abfebfd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "83423f0177334c8d65299e5a9748671d36f8b7b64d9bc36c41c2a41fa94ce48d"
+  },
+  "id": "ZlI2KI9A2oiRDU3I",
+  "tags": []
+}

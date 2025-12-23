@@ -1,0 +1,271 @@
+{
+  "name": "Contract Expiry Alert",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -368,
+        -48
+      ],
+      "id": "a1347aea-71f9-438b-82d4-6588a899be5c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1_gPDqJHoEtJgpL_vKkaERHpsIE6CdmWyuR8N64oZZvs",
+          "mode": "list",
+          "cachedResultName": "Contracts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_gPDqJHoEtJgpL_vKkaERHpsIE6CdmWyuR8N64oZZvs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_gPDqJHoEtJgpL_vKkaERHpsIE6CdmWyuR8N64oZZvs/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -144,
+        -80
+      ],
+      "id": "c10b581b-50ae-4a35-b0a8-a8a7c5efbb37",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zeepax3AnRj8oWBi",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getTimeBetweenDates",
+        "startDate": "={{ new Date().toISOString().split('T')[0] }}",
+        "endDate": "={{ $json['Contract End Date'] }}",
+        "outputFieldName": "Days Left",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -32
+      ],
+      "id": "84d61439-bd4f-4bed-8bc3-6262584a1dcb",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        336,
+        48
+      ],
+      "id": "29c5b0d2-7963-4b82-9efa-3468335cbfbb",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        528,
+        144
+      ],
+      "id": "aff7c796-c147-4072-bf45-31d667d824d1"
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  let days = item.json['Days Left'];\n  \n  // 1. Fallback check for the value. The value is often a decimal (e.g., 23.123)\n  if (days === undefined || typeof days !== 'number') {\n    // Check the secondary location (sometimes just 'data')\n    if (item.json.data && typeof item.json.data === 'number') {\n        days = item.json.data;\n    }\n  }\n\n  // 2. The Final Fix: Round down (Math.floor) AND subtract 1\n  // Math.floor(days): Strips the decimal (e.g., 23.123 -> 23).\n  // Subtracting 1: Corrects the inclusive day count (23 - 1 = 22).\n  const correctedDays = Math.floor(days) - 1;\n  \n  item.json.DaysRemaining = correctedDays;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        -96
+      ],
+      "id": "0c8137f3-104a-4c41-93a5-c9504085f840",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3f422d0d-4214-4653-b2f8-18eb01145ae8",
+              "leftValue": "={{ $json['Days Left'].days }}",
+              "rightValue": 30,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        -48
+      ],
+      "id": "2b5040ce-f9ed-471c-97e0-4bf35ae11235",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get row(s) in sheet').item.json['Owner\\'s Email'] }}",
+        "subject": "=⚠️ CRITICAL RISK ALERT: {{ $('Get row(s) in sheet').item.json['Client Name'] }}’s contract expires in {{ $json['Days Left'].days }} days",
+        "emailType": "text",
+        "message": "=Hello,\n\nThis is a CRITICAL RISK ALERT for a client contract renewal.\n\nClient Details:\nClient Name: {{ $('Get row(s) in sheet').item.json['Client Name'] }}\nAccount Value: {{ $('Get row(s) in sheet').item.json['Account Value'] }}\nContract End Date: {{ $('Get row(s) in sheet').item.json['Contract End Date'] }}\n\nDays Remaining: {{ $('Date & Time').item.json['Days Left'].days }}\n\nACTION REQUIRED: Please contact the client's owner {{ $('Get row(s) in sheet').item.json['Owner\\'s Email'] }} immediately to begin the retention process. The contract expires in less than 30 days.\n\nThank you.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        752,
+        -128
+      ],
+      "id": "80de6693-5519-4756-a321-eacbb9b521c2",
+      "name": "Send a message",
+      "webhookId": "5c4b69a7-5846-444d-b9b2-f46f9412d135",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RYTSTcKTDdR4hcgH",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": [
+        9
+      ]
+    }
+  },
+  "pinData": {},
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
