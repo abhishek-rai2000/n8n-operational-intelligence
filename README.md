@@ -24,7 +24,7 @@ This repository contains "Core Modules"—foundational workflows designed to sol
 ## 🚀 How to Use
 1. **Download:** Click the JSON file you need.
 2. **Import:** Open your n8n instance → "Import from File."
-3. **Configure:** Add your own credentials (Gmail, OpenAI, Google Sheets).
+3. **Configure:** Add your own credentials (Gmail, OpenAI/ Gemini, Google Sheets).
 
 ---
 
